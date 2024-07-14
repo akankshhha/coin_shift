@@ -53,7 +53,7 @@ const Conversion = () => {
             }
 
         } catch (error) {
-            console.log("Error fetching supported codes.")
+            console.error("Error fetching supported codes.")
         }
     }
 
@@ -107,7 +107,6 @@ const Conversion = () => {
         const filteredOption = options?.find((option) => option.value === dropdownType)
 
         if (filteredOption) {
-            console.log(filteredOption)
             return filteredOption
         }
         return ''
