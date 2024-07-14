@@ -8,7 +8,6 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const Conversion = () => {
    
-    // const todayDate = today.toISOString().split('T')[0]
     const defaultCurrency = 'USD'
     const today = new Date()
     
@@ -16,15 +15,17 @@ const Conversion = () => {
     const [base, setBase] = useState(defaultCurrency)
     const [target, setTarget] = useState("")
     const [conversionRates, setConversionRates] = useState({})
-    const [baseOptions, setBaseOptions] = useState([])
-    const [targetOptions, setTargetOptions] = useState([])
+    const [options, setOptions] = useState([])
     const [baseAmount, setBaseAmount] = useState(0)
     const [result, setResult] = useState(0)
 
     useEffect(() => {
-        updateOptions();
         fetchCRBasedOnDate(base, date);
     }, []);
+
+    useEffect(() => {
+        updateOptions();
+    }, [date])
 
     //function to update options for both the base and the target currency dropdowns.
     const updateOptions = async () => {
@@ -38,8 +39,7 @@ const Conversion = () => {
                 label: `${currency[1]} (${currency[0]})`,
             }));
 
-            setBaseOptions(currencyOptions)
-            setTargetOptions(currencyOptions)
+            setOptions(currencyOptions)
             if (date < new Date('2020-12-31')) {
                 //arranging for react select
                 currencyOptions = supportedCodes.filter(currency => {
@@ -49,8 +49,7 @@ const Conversion = () => {
                     value: currency[0],
                     label: `${currency[1]} (${currency[0]})`,
                 }));
-                setTargetOptions(currencyOptions)
-                setBaseOptions(currencyOptions)
+                setOptions(currencyOptions)
             }
 
         } catch (error) {
@@ -59,12 +58,10 @@ const Conversion = () => {
     }
 
     const fetchCRBasedOnDate = async (baseCurrency, chosenDate) => {
-        const baseRates = await fetchCurrenciesBasedOnDate(baseCurrency, chosenDate)
-        console.log('gettin called')
-        if (baseRates) {
-            console.log(baseRates["conversion_rates"])
-            setConversionRates(baseRates["conversion_rates"])
-        }
+        const response = await fetchCurrenciesBasedOnDate(baseCurrency, chosenDate)
+        if (response) {
+            setConversionRates(response["conversion_rates"])
+        } 
 
     }
 
@@ -72,22 +69,27 @@ const Conversion = () => {
         const chosenDate = new Date(event.target.value)
         setDate(chosenDate)
         await fetchCRBasedOnDate(base, chosenDate)
-        setTarget('')
         setBase(defaultCurrency)
+        setResult(0)
     }
 
     //function to calculate the total result
     const calculateResult = () => {
+        let resultAmount
         if (!target) {
             toast.error('Please choose target currency!')
             return
         }
         if (baseAmount === 0 || baseAmount === '') {
-            toast.error('Enter the amount in base currency!')
+            toast.error('Please enter the amount in base currency!')
             return
         }
         let inputAmount = parseFloat(baseAmount)
-        let resultAmount = inputAmount * conversionRates[target]
+        if(Object.keys(conversionRates).length === 0) {
+            toast.warn(`The exchange rates for today is not available in the database yet.`)
+            return 
+        }
+        resultAmount = inputAmount * conversionRates[target]
         setResult(resultAmount)
     }
 
@@ -101,8 +103,8 @@ const Conversion = () => {
 
     };
 
-    const dropdownValue = (optionArray, dropdownType) => {
-        const filteredOption = optionArray?.find((option) => option.value === dropdownType)
+    const dropdownValue = (dropdownType) => {
+        const filteredOption = options?.find((option) => option.value === dropdownType)
 
         if (filteredOption) {
             console.log(filteredOption)
@@ -137,7 +139,7 @@ const Conversion = () => {
                 theme="light"
             />
             <div className=" section-1 text-center m-4 ">
-                <p className="mx-2 fw-bold my-3 fs-5">Choose the date for which you need the exchange rates!</p>
+                <p className="mx-2 fw-bold my-3 fs-5">✨ Choose the date for which you need the exchange rates! ✨</p>
                 <input type="date" name="" id="" max={formatDate(today)} defaultValue={formatDate(date)} onChange={dateChangeHandler} value = {formatDate(date)} className="mx-2" />
 
             </div>
@@ -145,9 +147,9 @@ const Conversion = () => {
                 <div className="">
                     <label htmlFor="" className="fw-bold">Base Currency {base ? `(${base})` : ''}</label>
                     <Select
-                        value={dropdownValue(baseOptions, base)}
+                        value={dropdownValue(base)}
                         onChange={selectionChangeBase}
-                        options={baseOptions}
+                        options={options}
                         className="select-react my-2"
                         placeholder="Choose.."
                     />
@@ -157,9 +159,9 @@ const Conversion = () => {
                 <div className="">
                     <label htmlFor="" className="fw-bold">Target Currency {target ? `(${target})` : ''}</label>
                     <Select
-                        value={dropdownValue(targetOptions, target)}
+                        value={dropdownValue(target)}
                         onChange={selectionChangeTarget}
-                        options={targetOptions}
+                        options={options}
                         className="select-react my-2"
                         placeholder="Choose.."
                     />

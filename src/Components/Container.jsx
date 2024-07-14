@@ -11,7 +11,7 @@ const Container = () => {
             <div className='middle-section m-auto'>
                 <Conversion />
             </div>
-            <footer className='text-center p-3'>© <a href="https://www.exchangerate-api.com/">ExchangeRate-API</a>❤️</footer>
+            <footer className='text-center p-3'>© <a href="https://www.exchangerate-api.com/">ExchangeRate-API</a> ❤️</footer>
         </>
     )
 }

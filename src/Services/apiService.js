@@ -7,13 +7,14 @@ export const fetchCurrenciesBasedOnDate = async (base, chosenDate) => {
     const year = chosenDate.getFullYear();
     const month = chosenDate.getMonth() + 1;
     const day = chosenDate.getDate();
+    let apiResponse
 
     try {
         const url = `https://v6.exchangerate-api.com/v6/${apiKey}/history/${base}/${year}/${month}/${day}`
-        const apiResponse = await axios.get(url)
+        apiResponse = await axios.get(url)
         return apiResponse.data
     } catch (err) {
-        console.error(err)
+        console.error(err.response)
     }
 }
 

@@ -5,7 +5,7 @@ input[type=number]::-webkit-inner-spin-button {
 }
 
 footer, header {
-    background-color: rgb(240, 249, 255);
+    background-color: #f0e3de;
 }
 .App {
     font-family: 'Poppins', sans-serif;
@@ -16,7 +16,7 @@ footer, header {
 
 .middle-section{
     width: 60%;
-    /* height: 40vh; */
+    height: 82vh;
 }
 
 .convert-btn {
