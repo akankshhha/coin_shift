@@ -16,7 +16,7 @@ footer, header {
 
 .middle-section{
     width: 60%;
-    height: 50vh;
+    /* height: 40vh; */
 }
 
 .convert-btn {
@@ -30,3 +30,7 @@ footer, header {
 .fs-6 {
     font-size: 10px;
 }
+
+html, body, #app, #app>div {
+    height: 100%
+  }

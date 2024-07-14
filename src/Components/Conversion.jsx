@@ -7,8 +7,10 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Conversion = () => {
-    const today = new Date()
+   
+    // const todayDate = today.toISOString().split('T')[0]
     const defaultCurrency = 'USD'
+    const today = new Date()
     
     const [date, setDate] = useState(today)
     const [base, setBase] = useState(defaultCurrency)
@@ -134,14 +136,14 @@ const Conversion = () => {
                 pauseOnHover
                 theme="light"
             />
-            <div className="d-flex section-1 justify-content-center m-4 align-items-center">
-                <p className="mx-2 fw-bold my-0">Choose the date for which you need the exchange rates!</p>
-                <input type="date" name="" id="" max={formatDate(today)} defaultValue={formatDate(date)} onChange={dateChangeHandler} className="mx-2" />
+            <div className=" section-1 text-center m-4 ">
+                <p className="mx-2 fw-bold my-3 fs-5">Choose the date for which you need the exchange rates!</p>
+                <input type="date" name="" id="" max={formatDate(today)} defaultValue={formatDate(date)} onChange={dateChangeHandler} value = {formatDate(date)} className="mx-2" />
 
             </div>
             <div className="d-flex mt-5 mb-3 mx-5 justify-content-around">
                 <div className="">
-                    <label htmlFor="">Base Currency {base ? `(${base})` : ''}</label>
+                    <label htmlFor="" className="fw-bold">Base Currency {base ? `(${base})` : ''}</label>
                     <Select
                         value={dropdownValue(baseOptions, base)}
                         onChange={selectionChangeBase}
@@ -153,7 +155,7 @@ const Conversion = () => {
 
                 </div>
                 <div className="">
-                    <label htmlFor="">Target Currency {target ? `(${target})` : ''}</label>
+                    <label htmlFor="" className="fw-bold">Target Currency {target ? `(${target})` : ''}</label>
                     <Select
                         value={dropdownValue(targetOptions, target)}
                         onChange={selectionChangeTarget}

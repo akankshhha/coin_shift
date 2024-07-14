@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const apiKey = '7c200c6ba076f7fbfaa64a22';
+const apiKey = process.env.REACT_APP_API_KEY;
 
 export const fetchCurrenciesBasedOnDate = async (base, chosenDate) => {
 
@@ -16,7 +16,6 @@ export const fetchCurrenciesBasedOnDate = async (base, chosenDate) => {
         console.error(err)
     }
 }
-
 
 export const fetchSupportedCodes = async () => {
     try {
