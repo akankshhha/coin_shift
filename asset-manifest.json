@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/coin_shift/static/css/main.2e2efe17.css",
+    "main.js": "/coin_shift/static/js/main.dcc4b4fe.js",
+    "static/js/453.9188c26f.chunk.js": "/coin_shift/static/js/453.9188c26f.chunk.js",
+    "index.html": "/coin_shift/index.html",
+    "main.2e2efe17.css.map": "/coin_shift/static/css/main.2e2efe17.css.map",
+    "main.dcc4b4fe.js.map": "/coin_shift/static/js/main.dcc4b4fe.js.map",
+    "453.9188c26f.chunk.js.map": "/coin_shift/static/js/453.9188c26f.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.2e2efe17.css",
+    "static/js/main.dcc4b4fe.js"
+  ]
+}
