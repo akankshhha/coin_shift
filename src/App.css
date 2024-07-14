@@ -1,0 +1,32 @@
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+footer, header {
+    background-color: rgb(240, 249, 255);
+}
+.App {
+    font-family: 'Poppins', sans-serif;
+}
+.select-react {
+    width: 18em;
+}
+
+.middle-section{
+    width: 60%;
+    height: 50vh;
+}
+
+.convert-btn {
+    background-color: rgb(15, 27, 58);
+    color: #e5e5e5;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+}
+
+.fs-6 {
+    font-size: 10px;
+}
